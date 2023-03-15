@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="MonitorizareTemeLaboratorV01" target="18" />
+      <module name="MonitorizareTemeLaboratorV01" target="19" />
     </bytecodeTargetLevel>
   </component>
 </project>
