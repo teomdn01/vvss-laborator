@@ -25,6 +25,15 @@ public abstract class AbstractCRUDRepository<ID, E extends HasID<ID>> implements
         }
     }
 
+    public boolean exists(ID identifier) {
+        for(ID id : entities.keySet()) {
+            if(id == identifier) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public Iterable<E> findAll() { return entities.values(); }
 
@@ -32,10 +41,14 @@ public abstract class AbstractCRUDRepository<ID, E extends HasID<ID>> implements
     public E save(E entity) throws ValidationException {
         try {
             validator.validate(entity);
+            if(exists(entity.getID())) {
+                System.out.println("Entitatea nu este valida! \n");
+                return null;
+            }
             entities.putIfAbsent(entity.getID(), entity);
             return entity;
         }
-        catch (ValidationException ve) {
+        catch (ValidationException | IllegalArgumentException e) {
             System.out.println("Entitatea nu este valida! \n");
             return null;
         }

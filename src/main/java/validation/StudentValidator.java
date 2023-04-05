@@ -12,6 +12,18 @@ public class StudentValidator implements Validator<Student> {
         if (student.getGrupa() <= 110 || student.getGrupa() >= 938) {
             throw new ValidationException("Grupa invalida! \n");
         }
+
+        try {
+            int intValue = Integer.parseInt(student.getID());
+            if(intValue <= 0) {
+                throw new ValidationException("ID is not a number! \n");
+            }
+        } catch (NumberFormatException e) {
+            throw new ValidationException("ID is not a number! \n");
+        }
+        if (student.getID() == null || student.getID().equals("")) {
+            throw new ValidationException("ID invalid! \n");
+        }
     }
 }
 
